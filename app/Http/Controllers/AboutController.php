@@ -8,6 +8,6 @@ use Inertia\Inertia;
 class AboutController extends Controller
 {
     function AboutPage(){
-        return Inertia::render('About')->withViewData(['title'=>'About Page']);
+        return Inertia::render('About/About')->withViewData(['title'=>'About Page']);
     }
 }

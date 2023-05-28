@@ -17,6 +17,6 @@ class HomeController extends Controller
     }
 
     function ProductPage(){
-        return Inertia::render('Product')->withViewData(['title'=>'Product Page']);
+        return Inertia::render('Portfolio/Product')->withViewData(['title'=>'Product Page']);
     }
 }

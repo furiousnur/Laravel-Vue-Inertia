@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import SideBar from "../Component/SideBar.vue";
+import SideBar from "../../Component/SideBar.vue";
 
 export default {
     name: "Blogs",

@@ -23,4 +23,5 @@ Route::get('/about', [AboutController::class, 'AboutPage']);
 Route::get('/portfolio', [PortfolioController::class, 'PortfolioPage']);
 Route::get('/blogs', [BlogController::class, 'BlogPage']);
 Route::get('/contact', [ContactController::class, 'ContactPage']);
+Route::post('/contact', [ContactController::class, 'storeMessage']);
 Route::get('/product', [HomeController::class, 'ProductPage']);

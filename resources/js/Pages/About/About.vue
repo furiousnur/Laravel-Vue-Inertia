@@ -182,5 +182,5 @@
     </div>
 </template>
 <script setup>
-import SideBar from "../Component/SideBar.vue";
+import SideBar from "../../Component/SideBar.vue";
 </script>
