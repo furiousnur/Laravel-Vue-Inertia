@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PortfolioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\HomeController::class, 'HomePage']);
-Route::get('/about', [\App\Http\Controllers\HomeController::class, 'AboutPage']);
-Route::get('/portfolio', [\App\Http\Controllers\HomeController::class, 'PortfolioPage']);
-Route::get('/blogs', [\App\Http\Controllers\HomeController::class, 'BlogPage']);
-Route::get('/contact', [\App\Http\Controllers\HomeController::class, 'ContactPage']);
-Route::get('/product', [\App\Http\Controllers\HomeController::class, 'ProductPage']);
+Route::get('/', [HomeController::class, 'HomePage']);
+Route::get('/about', [AboutController::class, 'AboutPage']);
+Route::get('/portfolio', [PortfolioController::class, 'PortfolioPage']);
+Route::get('/blogs', [BlogController::class, 'BlogPage']);
+Route::get('/contact', [ContactController::class, 'ContactPage']);
+Route::get('/product', [HomeController::class, 'ProductPage']);
