@@ -1,15 +1,21 @@
 <template>
     <div>
         <form class="contact-form">
-            <div class="input-control i-c-2">
-                <input type="text" id="name" v-model="form.name" required placeholder="YOUR NAME">
-                <input type="email" id="email" v-model="form.email" required placeholder="YOUR EMAIL">
+            <div class="input-control">
+                <input type="text" v-model="form.name" placeholder="YOUR NAME">
+                <p v-if="hasFormErrors && formErrors && formErrors.name" class="formErrors">{{ formErrors.name[0] }}</p>
             </div>
             <div class="input-control">
-                <input type="text" id="subject" v-model="form.subject" required placeholder="ENTER SUBJECT">
+                <input type="email" v-model="form.email" placeholder="YOUR EMAIL">
+                <p class="formErrors" v-if="formErrors && formErrors.email">{{ formErrors.email[0] }}</p>
             </div>
             <div class="input-control">
-                <textarea id="message" v-model="form.message" cols="15" rows="8" placeholder="Message Here..."></textarea>
+                <input type="text" v-model="form.subject" placeholder="ENTER SUBJECT">
+                <p class="formErrors" v-if="formErrors && formErrors.subject">{{ formErrors.subject[0] }}</p>
+            </div>
+            <div class="input-control">
+                <textarea v-model="form.message" cols="15" rows="8" placeholder="Message Here..."></textarea>
+                <p class="formErrors" v-if="formErrors && formErrors.email">{{ formErrors.message[0] }}</p>
             </div>
             <div class="submit-btn">
                 <a @click.prevent="submitForm" class="main-btn">
@@ -26,28 +32,38 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
-import { Inertia } from '@inertiajs/inertia';
+import { ref } from 'vue';
+import axios from 'axios';
 
-const form = reactive({
-    name: null,
-    email: null,
-    subject: null,
-    message: null,
-});
+const form = {
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+};
+
 const success = ref(false);
-const submitForm = async () => {
-    try {
-        await Inertia.post('/contact', form);
-        form.name = null;
-        form.email = null;
-        form.subject = null;
-        form.message = null;
-        success.value = true;
-    } catch (error) {
-        // Handle error
-        console.error(error);
-    }
+const formErrors = ref(null);
+const hasFormErrors = ref(false);
+
+const submitForm = () => {
+    axios
+        .post('/contact', form)
+        .then((response) => {
+            form.name = '';
+            form.email = '';
+            form.subject = '';
+            form.message = '';
+            success.value = true;
+            formErrors.value = null;
+            hasFormErrors.value = false;
+        })
+        .catch((error) => {
+            if (error.response && error.response.data && error.response.data.errors) {
+                formErrors.value = error.response.data.errors;
+                hasFormErrors.value = true;
+            }
+        });
 };
 </script>
 
@@ -55,7 +71,10 @@ const submitForm = async () => {
     .main-btn {
         cursor: pointer;
     }
-    .success-message{
+    .success-message {
         margin-top: 5px;
+    }
+    .formErrors {
+        color: red;
     }
 </style>
