@@ -3,8 +3,8 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PortfolioController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,12 +19,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/admin-login', [LoginController::class, 'index']);
-
-Route::get('/', [HomeController::class, 'HomePage']);
+Route::get('/super/admin-login', [FrontendController::class, 'AdminLogin']);
+Route::get('/', [FrontendController::class, 'HomePage']);
 Route::get('/about', [AboutController::class, 'AboutPage']);
 Route::get('/portfolio', [PortfolioController::class, 'PortfolioPage']);
 Route::get('/blogs', [BlogController::class, 'BlogPage']);
 Route::get('/contact', [ContactController::class, 'ContactPage']);
 Route::post('/contact', [ContactController::class, 'storeMessage']);
 Route::get('/product', [HomeController::class, 'ProductPage']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

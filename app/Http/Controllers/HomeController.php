@@ -7,11 +7,23 @@ use Inertia\Inertia;
 
 class HomeController extends Controller
 {
-    function HomePage(){
-        return Inertia::render('Index')->withViewData(['title'=>'Home Page']);
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
 
-    function ProductPage(){
-        return Inertia::render('Portfolio/Product')->withViewData(['title'=>'Product Page']);
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        return view('home');
     }
 }

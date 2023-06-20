@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class LoginController extends Controller
+class FrontendController extends Controller
 {
-    function index(){
+    function HomePage(){
+        return Inertia::render('Index')->withViewData(['title'=>'Home Page']);
+    }
+
+    function AdminLogin(){
         return Inertia::render('Admin/Login')->withViewData(['title'=>'Admin Login']);
     }
 }
