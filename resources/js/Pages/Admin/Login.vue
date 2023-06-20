@@ -12,7 +12,7 @@
                             <p class="formErrors" v-if="formErrors && formErrors.email">{{ formErrors.email[0] }}</p>
                         </div>
                         <div class="input-control">
-                            <input type="text" v-model="form.password" placeholder="YOUR PASSWORD">
+                            <input type="password" v-model="form.password" placeholder="YOUR PASSWORD">
                             <p class="formErrors" v-if="formErrors && formErrors.password">{{ formErrors.password[0] }}</p>
                         </div>
                         <div class="submit-btn">
@@ -22,26 +22,28 @@
                             </a>
                         </div>
                     </form>
-                    <!-- Form markup -->
-                    <div v-if="success" class="success-message">
-                        Your message has been sent successfully
-                    </div>
                 </div>
             </div>
         </div>
     </section>
+    <div class="controls">
+        <SideBar/>
+    </div>
+    <div class="theme-btn">
+        <i class="fas fa-adjust"></i>
+    </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
+import SideBar from "../../Component/SideBar.vue";
 
 const form = {
     email: '',
     password: '',
 };
 
-const success = ref(false);
 const formErrors = ref(null);
 const hasFormErrors = ref(false);
 
@@ -51,9 +53,9 @@ const submitForm = () => {
         .then((response) => {
             form.email = '';
             form.password = '';
-            success.value = true;
             formErrors.value = null;
             hasFormErrors.value = false;
+            window.location.href = '/admin/home';
         })
         .catch((error) => {
             if (error.response && error.response.data && error.response.data.errors) {
@@ -67,9 +69,6 @@ const submitForm = () => {
 <style scoped>
     .main-btn {
         cursor: pointer;
-    }
-    .success-message {
-        margin-top: 5px;
     }
     .formErrors {
         color: red;

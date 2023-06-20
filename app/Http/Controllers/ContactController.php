@@ -35,8 +35,5 @@ class ContactController extends Controller
         $contact->message = $request->input('message');
         $contact->save();
         return redirect()->back()->with('success', 'Your message has been sent successfully');
-        /*return Inertia::render('Contact/ContactForm', [
-            'success' => 'Your message has been sent successfully'
-        ]);*/
     }
 }
